@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>基础 WebSocket</title>
+</head>
+<body>
+	<h1>Echo Test</h1>
+	<input type="text" id="sendText">
+	<button id="sendBtn"></button>
+	<div id="recv"></div>
+
+	<script>
+		var webSocket = new WebSocket("ws://echo.webSocket.org/");
+
+		webSocket.onopen = function () {
+			console.log('webSocket online');
+			document.getElementById("recv").innerHTML = "connect";
+		}
+
+		webSocket.onclose = function () {
+			console.log('webSocket onclose');
+		}
+
+		webSocket.onmessage = function (e) {
+			console.log(e);
+			document.getElementById("recv").innerHTML = e.data;
+		}
+
+		document.getElementById('sendBtn').onclick = function () {
+			var text = document.getElementById('sendText').value;
+			webSocket.send(text);
+		}
+
+	</script>
+</body>
+</html>
