@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>基础 WebSocket</title>
+	<title>基于webSocket的聊天系统</title>
 </head>
 <body>
 	<h1>Echo Test</h1>
@@ -24,7 +24,15 @@
 
 		webSocket.onmessage = function (e) {
 			console.log(e);
-			document.getElementById("recv").innerHTML = e.data;
+			var div = document.createElement('div');
+			if (e.type === 'message'){
+				let data = JSON.parse(e.data);
+				div.innerHTML = '' + data.user + ': ' + data.message;
+			}else {
+				div.innerHTML = e.data;
+			}
+			document.body.appendChild(div);
+			// document.getElementById("recv").innerHTML = data.message;
 		}
 
 		document.getElementById('sendBtn').onclick = function () {
